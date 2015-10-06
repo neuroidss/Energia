@@ -1407,7 +1407,6 @@ public class Sketch {
 	        
 	        // These #line directives help the compiler report errors with
 	        // correct the filename and line number (issue 281 & 907)
-		    bigCode.append("#line 1 \"" + sc.getFileName() + "\"\n");
 	        if(setupMatches.size() > 0 && loopMatches.size() > 0) {
 	        	String sketchName = sc.getFileName().substring(0, sc.getFileName().length()-4);
 	        	bigCode.append("#undef setup\n#undef loop\n");
@@ -1415,6 +1414,7 @@ public class Sketch {
 	        	bigCode.append("#define loop loop" +  sketchName + "\n");
 	        }
         }
+	bigCode.append("#line 1 \"" + sc.getFileName() + "\"\n");
         
         bigCode.append(sc.getProgram());
         bigCode.append('\n');

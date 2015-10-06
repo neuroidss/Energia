@@ -169,132 +169,132 @@ static const uint8_t TEMPSENSOR = 128 + 10;
 
 #ifdef ARDUINO_MAIN
 
-const uint16_t port_to_input[] = {
+const uintptr_t port_to_input[] = {
 	NOT_A_PORT,
-	(uint16_t) &P1IN,
-	(uint16_t) &P2IN,
+	(uintptr_t) &P1IN,
+	(uintptr_t) &P2IN,
 #ifdef __MSP430_HAS_PORT3_R__
-	(uint16_t) &P3IN,
+	(uintptr_t) &P3IN,
 #endif
 #ifdef __MSP430_HAS_PORT4_R__
-	(uint16_t) &P4IN,
+	(uintptr_t) &P4IN,
 #endif
 #ifdef __MSP430_HAS_PORT5_R__
-	(uint16_t) &P5IN,
+	(uintptr_t) &P5IN,
 #endif
 #ifdef __MSP430_HAS_PORT6_R__
-	(uint16_t) &P6IN,
+	(uintptr_t) &P6IN,
 #endif
 #ifdef __MSP430_HAS_PORT7_R__
-	(uint16_t) &P7IN,
+	(uintptr_t) &P7IN,
 #endif
 #ifdef __MSP430_HAS_PORT8_R__
-	(uint16_t) &P8IN,
+	(uintptr_t) &P8IN,
 #endif
 };
 
-const uint16_t port_to_output[] = {
+const uintptr_t port_to_output[] = {
 	NOT_A_PORT,
-	(uint16_t) &P1OUT,
-	(uint16_t) &P2OUT,
+	(uintptr_t) &P1OUT,
+	(uintptr_t) &P2OUT,
 #ifdef __MSP430_HAS_PORT3_R__
-	(uint16_t) &P3OUT,
+	(uintptr_t) &P3OUT,
 #endif
 #ifdef __MSP430_HAS_PORT4_R__
-	(uint16_t) &P4OUT,
+	(uintptr_t) &P4OUT,
 #endif
 #ifdef __MSP430_HAS_PORT5_R__
-	(uint16_t) &P5OUT,
+	(uintptr_t) &P5OUT,
 #endif
 #ifdef __MSP430_HAS_PORT6_R__
-	(uint16_t) &P6OUT,
+	(uintptr_t) &P6OUT,
 #endif
 #ifdef __MSP430_HAS_PORT7_R__
-	(uint16_t) &P7OUT,
+	(uintptr_t) &P7OUT,
 #endif
 #ifdef __MSP430_HAS_PORT8_R__
-	(uint16_t) &P8OUT,
+	(uintptr_t) &P8OUT,
 #endif
 };
 
-const uint16_t port_to_dir[] = {
+const uintptr_t port_to_dir[] = {
 	NOT_A_PORT,
-	(uint16_t) &P1DIR,
-	(uint16_t) &P2DIR,
+	(uintptr_t) &P1DIR,
+	(uintptr_t) &P2DIR,
 #ifdef __MSP430_HAS_PORT3_R__
-	(uint16_t) &P3DIR,
+	(uintptr_t) &P3DIR,
 #endif
 #ifdef __MSP430_HAS_PORT4_R__
-	(uint16_t) &P4DIR,
+	(uintptr_t) &P4DIR,
 #endif
 #ifdef __MSP430_HAS_PORT5_R__
-	(uint16_t) &P5DIR,
+	(uintptr_t) &P5DIR,
 #endif
 #ifdef __MSP430_HAS_PORT6_R__
-	(uint16_t) &P6DIR,
+	(uintptr_t) &P6DIR,
 #endif
 #ifdef __MSP430_HAS_PORT7_R__
-	(uint16_t) &P7DIR,
+	(uintptr_t) &P7DIR,
 #endif
 #ifdef __MSP430_HAS_PORT8_R__
-	(uint16_t) &P8DIR,
+	(uintptr_t) &P8DIR,
 #endif
 };
 
-const uint16_t port_to_ren[] = {
+const uintptr_t port_to_ren[] = {
 	NOT_A_PORT,
-	(uint16_t) &P1REN,
-	(uint16_t) &P2REN,
+	(uintptr_t) &P1REN,
+	(uintptr_t) &P2REN,
 #ifdef __MSP430_HAS_PORT3_R__
-	(uint16_t) &P3REN,
+	(uintptr_t) &P3REN,
 #endif
 #ifdef __MSP430_HAS_PORT4_R__
-	(uint16_t) &P4REN,
+	(uintptr_t) &P4REN,
 #endif
 #ifdef __MSP430_HAS_PORT5_R__
-	(uint16_t) &P5REN,
+	(uintptr_t) &P5REN,
 #endif
 #ifdef __MSP430_HAS_PORT6_R__
-	(uint16_t) &P6REN,
+	(uintptr_t) &P6REN,
 #endif
 #ifdef __MSP430_HAS_PORT7_R__
-	(uint16_t) &P7REN,
+	(uintptr_t) &P7REN,
 #endif
 #ifdef __MSP430_HAS_PORT8_R__
-	(uint16_t) &P8REN,
+	(uintptr_t) &P8REN,
 #endif
 };
 
-const uint16_t port_to_sel0[] = {  /* put this PxSEL register under the group of PxSEL0 */
+const uintptr_t port_to_sel0[] = {  /* put this PxSEL register under the group of PxSEL0 */
 	NOT_A_PORT,
-	(uint16_t) &P1SEL,
-	(uint16_t) &P2SEL,
+	(uintptr_t) &P1SEL,
+	(uintptr_t) &P2SEL,
 #ifdef __MSP430_HAS_PORT3_R__
-	(uint16_t) &P3SEL,
+	(uintptr_t) &P3SEL,
 #endif
 #ifdef __MSP430_HAS_PORT4_R__
-	(uint16_t) &P4SEL,
+	(uintptr_t) &P4SEL,
 #endif
 #ifdef __MSP430_HAS_PORT5_R__
-	(uint16_t) &P5SEL,
+	(uintptr_t) &P5SEL,
 #endif
 #ifdef __MSP430_HAS_PORT6_R__
-	(uint16_t) &P6SEL,
+	(uintptr_t) &P6SEL,
 #endif
 #ifdef __MSP430_HAS_PORT7_R__
-	(uint16_t) &P7SEL,
+	(uintptr_t) &P7SEL,
 #endif
 #ifdef __MSP430_HAS_PORT8_R__
-	(uint16_t) &P8SEL,
+	(uintptr_t) &P8SEL,
 #endif
 };
 
-const uint16_t port_to_pmap[] = {
+const uintptr_t port_to_pmap[] = {
 	NOT_A_PORT,	/* PMAP starts at port P1 */
 	NOT_A_PORT,
 	NOT_A_PORT,
 	NOT_A_PORT,
-	(uint16_t) &P4MAP0,
+	(uintptr_t) &P4MAP0,
 	NOT_A_PORT,
 	NOT_A_PORT,
 	NOT_A_PORT,

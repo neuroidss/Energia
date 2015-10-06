@@ -20,9 +20,8 @@
 */
 
 #include "WString.h"
+#include "itoa.h"
 #include "avr/dtostrf.h"
-#include "atof.h"
-
 /*********************************************/
 /*  Constructors                             */
 /*********************************************/
@@ -156,11 +155,8 @@ unsigned char String::reserve(unsigned int size)
 
 unsigned char String::changeBuffer(unsigned int maxStrLen)
 {
-	char *newbuffer = (char *)malloc(maxStrLen + 1);
-
+	char *newbuffer = (char *)realloc(buffer, maxStrLen + 1);
 	if (newbuffer) {
-		strncpy(newbuffer, buffer, len);
-		free(buffer);
 		buffer = newbuffer;
 		capacity = maxStrLen;
 		return 1;

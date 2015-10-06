@@ -49,7 +49,7 @@ public class Sizer implements MessageConsumer {
     if(arch == "msp430") {
       String basePath = Base.getMSP430BasePath();
       commandSize = new String[] {
-        basePath + "msp430-size",
+        basePath + "msp430-elf-size",
         " "
       };
     } 

@@ -455,12 +455,12 @@ unsigned long micros()
 
 	// disable interrupts to ensure consistent readings
 	// safe SREG to avoid issues if interrupts were already disabled
-	uint16_t oldSREG = READ_SR;
+	uint16_t oldSREG = _get_interrupt_state();
 	__dint();
 
 	m = wdt_overflow_count;
 
-	WRITE_SR(oldSREG);	// safe to enable interrupts again
+	_set_interrupt_state(oldSREG);	// safe to enable interrupts again
 
 	// MSP430 does not give read access to current WDT, so we
 	// have to approximate microseconds from overflows and
@@ -477,12 +477,12 @@ unsigned long millis()
 
 	// disable interrupts to ensure consistent readings
 	// safe SREG to avoid issues if interrupts were already disabled
-	uint16_t oldSREG = READ_SR;
+	uint16_t oldSREG = _get_interrupt_state();
 	__dint();
 
 	m = wdt_millis;
 
-	WRITE_SR(oldSREG);	// safe to enable interrupts again
+	_set_interrupt_state(oldSREG);	// safe to enable interrupts again
 
  	return m;
 }
@@ -519,21 +519,6 @@ void delayMicroseconds(unsigned int us)
 	 * per iteration, so execute it four times for each microsecond of
 	 * delay requested. */
 	us <<= 2;
-
-	/* Account for the time taken in the preceeding commands. */
-	us -= 2;
-#elif F_CPU >= 8000000L
-	/* For the 16 MHz clock on most boards */
-
-	/* For a one-microsecond delay, simply return.  the overhead
-	 * of the function call yields a delay of approximately 1 1/8 us. */
-	if (--us == 0)
-		return;
-
-	/* The following loop takes a quarter of a microsecond (4 cycles)
-	 * per iteration, so execute it four times for each microsecond of
-	 * delay requested. */
-	us <<= 1;
 
 	/* Account for the time taken in the preceeding commands. */
 	us -= 2;
@@ -591,7 +576,8 @@ void sleepSeconds(uint32_t seconds)
 		/* Wait for WDT interrupt in LPM3
 		 * A user's ISR may abort this sleep using wakeup().
 		 */
-		__bis_status_register(LPM3_bits+GIE);
+		_bis_SR_register(LPM3_bits+GIE);
+		//__bis_status_register(LPM3_bits+GIE);
 	}
 
 	sleeping = false;
@@ -631,7 +617,8 @@ void sleep(uint32_t milliseconds)
 		/* Wait for WDT interrupt in LPM3.
 		 * A user's ISR may abort this sleep using wakeup().
 		 */
-		__bis_status_register(LPM3_bits+GIE);
+		_bis_SR_register(LPM3_bits+GIE);
+		//__bis_status_register(LPM3_bits+GIE);
 	}
 
 	sleeping = false;
@@ -653,7 +640,8 @@ void suspend(void)
 		/* Halt all clocks; millis and micros will quit advancing, only
 		 * a user ISR may wake it up using wakeup().
 		 */
-		__bis_status_register(LPM4_bits+GIE);
+		_bis_SR_register(LPM4_bits+GIE);
+		//__bis_status_register(LPM4_bits+GIE);
 	}
 
 	sleeping = false;
@@ -671,7 +659,8 @@ void delay(uint32_t milliseconds)
 			milliseconds--;
 			start += 1000;
 		}
-		__bis_status_register(LPM0_bits+GIE);
+		_bis_SR_register(LPM0_bits+GIE);
+		//__bis_status_register(LPM0_bits+GIE);
 	}
 }
 
@@ -695,5 +684,6 @@ void watchdog_isr (void)
 	wdt_overflow_count++;
 
         /* Exit from LMP3 on reti (this includes LMP0) */
-        __bic_status_register_on_exit(LPM3_bits);
+	__bic_SR_register_on_exit(LPM3_bits);
+	//__bic_status_register_on_exit(LPM3_bits);
 }

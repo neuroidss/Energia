@@ -292,7 +292,7 @@ public class Compiler implements MessageConsumer {
   List baseCommandAR;
   if(arch == "msp430")  {
     baseCommandAR = new ArrayList(Arrays.asList(new String[] {
-      basePath + "msp430-ar",
+      basePath + "msp430-elf-ar",
       "rcs",
       runtimeLibraryName
     }));
@@ -347,12 +347,14 @@ public class Compiler implements MessageConsumer {
     List baseCommandLinker;
     if (arch == "msp430") { 
         baseCommandLinker = new ArrayList(Arrays.asList(new String[] {
-        basePath + "msp430-gcc",
+        basePath + "msp430-elf-g++",
+        "-L" + basePath + ".." + File.separator + "msp430" + File.separator + "include",
         "-Os",
         // msp430 linker has an issue with main residing in an archive, cora.a in this case.
         // -u,main works around this by forcing the linker to find a definition for main.
         "-Wl,-gc-sections,-u,main", 
         "-mmcu=" + boardPreferences.get("build.mcu"),
+        "-mlarge",
         "-o",
         buildPath + File.separator + primaryClassName + ".elf"
       }));
@@ -486,7 +488,7 @@ public class Compiler implements MessageConsumer {
     List baseCommandObjcopy;
     if (arch == "msp430") {
     baseCommandObjcopy = new ArrayList(Arrays.asList(new String[] {
-      basePath + "msp430-objcopy",
+      basePath + "msp430-elf-objcopy",
       "-O",
       "-R",
     }));
@@ -1043,11 +1045,13 @@ public class Compiler implements MessageConsumer {
     	//as per
     	//http://mspgcc.sourceforge.net/manual/x1522.html
         baseCommandCompiler = new ArrayList(Arrays.asList(new String[] {
-          basePath + "msp430-gcc",
+          basePath + "msp430-elf-gcc",
+          "-I" + basePath + ".." + File.separator + "msp430" + File.separator + "include",
           "-c", // compile, don't link
 //          "-g", // include debugging info (so errors include line numbers)
           "-assembler-with-cpp",
           "-mmcu=" + boardPreferences.get("build.mcu"),
+          "-mlarge",
           "-DF_CPU=" + boardPreferences.get("build.f_cpu"),
           "-DARDUINO=" + Base.REVISION,
           "-DENERGIA=" + Base.EREVISION,
@@ -1147,7 +1151,8 @@ public class Compiler implements MessageConsumer {
 
       if (arch == "msp430") {
       baseCommandCompiler = new ArrayList(Arrays.asList(new String[] {
-        basePath + "msp430-gcc",
+        basePath + "msp430-elf-gcc",
+        "-I" + basePath + ".." + File.separator + "msp430" + File.separator + "include",
         "-c", // compile, don't link
 //        "-g", // include debugging info (so errors include line numbers)
         "-Os", // optimize for size
@@ -1155,6 +1160,7 @@ public class Compiler implements MessageConsumer {
         "-ffunction-sections", // place each function in its own section
         "-fdata-sections",
         "-mmcu=" + boardPreferences.get("build.mcu"),
+        "-mlarge",
         "-DF_CPU=" + boardPreferences.get("build.f_cpu"),
         "-MMD", // output dependancy info
         "-DARDUINO=" + Base.REVISION,
@@ -1264,14 +1270,18 @@ public class Compiler implements MessageConsumer {
     List baseCommandCompilerCPP;
     if (arch == "msp430") {  
       baseCommandCompilerCPP = new ArrayList(Arrays.asList(new String[] {
-        basePath + "msp430-g++",
+        basePath + "msp430-elf-g++",
+        "-I" + basePath + ".." + File.separator + "msp430" + File.separator + "include",
         "-c", // compile, don't link
 //        "-g", // include debugging info (so errors include line numbers)
         "-Os", // optimize for size
         Preferences.getBoolean("build.verbose") ? "-Wall" : "-w", // show warnings if verbose
+        "-fno-rtti",
+        "-fno-exceptions",
         "-ffunction-sections", // place each function in its own section
         "-fdata-sections",
         "-mmcu=" + boardPreferences.get("build.mcu"),
+        "-mlarge",
         "-DF_CPU=" + boardPreferences.get("build.f_cpu"),
         "-MMD", // output dependancy info
         "-DARDUINO=" + Base.REVISION,
