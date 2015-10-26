@@ -354,7 +354,7 @@ public class Compiler implements MessageConsumer {
         // -u,main works around this by forcing the linker to find a definition for main.
         "-Wl,-gc-sections,-u,main", 
         "-mmcu=" + boardPreferences.get("build.mcu"),
-        "-mlarge",
+        //"-mlarge",
         "-o",
         buildPath + File.separator + primaryClassName + ".elf"
       }));
@@ -1051,7 +1051,7 @@ public class Compiler implements MessageConsumer {
 //          "-g", // include debugging info (so errors include line numbers)
           "-assembler-with-cpp",
           "-mmcu=" + boardPreferences.get("build.mcu"),
-          "-mlarge",
+          //"-mlarge",
           "-DF_CPU=" + boardPreferences.get("build.f_cpu"),
           "-DARDUINO=" + Base.REVISION,
           "-DENERGIA=" + Base.EREVISION,
@@ -1160,7 +1160,7 @@ public class Compiler implements MessageConsumer {
         "-ffunction-sections", // place each function in its own section
         "-fdata-sections",
         "-mmcu=" + boardPreferences.get("build.mcu"),
-        "-mlarge",
+        //"-mlarge",
         "-DF_CPU=" + boardPreferences.get("build.f_cpu"),
         "-MMD", // output dependancy info
         "-DARDUINO=" + Base.REVISION,
@@ -1281,7 +1281,7 @@ public class Compiler implements MessageConsumer {
         "-ffunction-sections", // place each function in its own section
         "-fdata-sections",
         "-mmcu=" + boardPreferences.get("build.mcu"),
-        "-mlarge",
+        //"-mlarge",
         "-DF_CPU=" + boardPreferences.get("build.f_cpu"),
         "-MMD", // output dependancy info
         "-DARDUINO=" + Base.REVISION,
