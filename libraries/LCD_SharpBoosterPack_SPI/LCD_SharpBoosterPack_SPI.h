@@ -62,6 +62,7 @@ public:
     /// @param	pinVCC VCC pin
     ///
     LCD_SharpBoosterPack_SPI(uint8_t pinChipSelect, uint8_t pinDISP, uint8_t pinVCC);
+    LCD_SharpBoosterPack_SPI(uint8_t pinChipSelect, uint8_t pinDISP, uint8_t pinVCC, bool autoVCOM);
 
     ///
     /// @brief	Initialise the screen
@@ -116,7 +117,8 @@ public:
     void text(uint8_t x, uint8_t y, uint8_t c) ;
     void flush();
     void setCharXY(uint8_t x, uint8_t y);
-  
+    void drawImage(const uint8_t * image, uint8_t x,uint8_t y);
+
     virtual size_t write(uint8_t c);
     //virtual size_t write(const uint8_t *buffer, size_t size);
 
