@@ -63,6 +63,14 @@ volatile uint16_t vlo_freq = 0;
 void initClocks(void);
 void enableWatchDogIntervalMode(void);
 
+#include <msp430.h>
+
+static void __attribute__((naked, section(".crt_0042"), used))
+disable_watchdog (void)
+{
+	WDTCTL = WDTPW | WDTHOLD;
+}
+
 void enableXtal()
 {
 #if (!defined(__MSP430FR2XX_4XX_FAMILY__) && (defined(__MSP430_HAS_CS__) || defined(__MSP430_HAS_CS_A__))) 

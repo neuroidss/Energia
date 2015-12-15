@@ -91,6 +91,7 @@ public class Base {
   // these are static because they're used by Sketch
   static private File examplesFolder;
   static private File librariesFolder;
+  static private File commonLibrariesFolder;
   static private File toolsFolder;
   static private File hardwareFolder;
 
@@ -1006,6 +1007,7 @@ public class Base {
       
       temp = new JMenu("Libraries");
       addSketches(temp, librariesFolder, true);
+
       menu.add(temp);
       n++;
     } catch (IOException e) {
@@ -1041,13 +1043,27 @@ public class Base {
 
     // Add from the "libraries" subfolder in the Processing directory
     try {
+      JMenuItem label = new JMenuItem("Board Specific Libraries");
+      label.setEnabled(false);
+      importMenu.add(label);
+
       addLibraries(importMenu, librariesFolder);
+      label = new JMenuItem("Common Libraries");
+      label.setEnabled(false);
+      importMenu.add(label);
+
+      commonLibrariesFolder = new File(Base.getHardwarePath() + File.separator + "common" + File.separator + "libraries");
+      addLibraries(importMenu, commonLibrariesFolder);
     } catch (IOException e) {
       e.printStackTrace();
     }
     // Add libraries found in the sketchbook folder
     int separatorIndex = importMenu.getItemCount();
     try {
+        JMenuItem label = new JMenuItem("SketchBook Libraries");
+        label.setEnabled(false);
+        importMenu.add(label);
+
       File sketchbookLibraries = getSketchbookLibrariesFolder();
       boolean found = addLibraries(importMenu, sketchbookLibraries);
       if (found) {
@@ -1069,9 +1085,20 @@ public class Base {
       menu.removeAll();
       boolean found = addSketches(menu, examplesFolder, false);
       if (found) menu.addSeparator();
+      JMenuItem label = new JMenuItem("SketchBook Libraries");
+      label.setEnabled(false);
+      menu.add(label);
       found = addSketches(menu, getSketchbookLibrariesFolder(), false);
       if (found) menu.addSeparator();
+      label = new JMenuItem("Board Specific Libraries");
+      label.setEnabled(false);
+      menu.add(label);
       addSketches(menu, librariesFolder, false);
+      label = new JMenuItem("Common Libraries");
+      label.setEnabled(false);
+      menu.add(label);
+      commonLibrariesFolder = new File(Base.getHardwarePath() + File.separator + "common" + File.separator + "libraries");
+      addSketches(menu, commonLibrariesFolder, false);
     } catch (IOException e) {
       e.printStackTrace();
     }

@@ -121,6 +121,7 @@ extern char* ltoa( long value, char *string, int radix )
   return string;
 }
 
+/*
 extern char* utoa( unsigned long value, char *string, int radix )
 {
   return ultoa( value, string, radix ) ;
@@ -163,6 +164,7 @@ extern char* ultoa( unsigned long value, char *string, int radix )
 
   return string;
 }
+*/
 #endif /* 0 */
 
 #ifdef __cplusplus
